@@ -1,6 +1,9 @@
 package net.klooum.ethermod;
 
 import com.mojang.logging.LogUtils;
+import net.klooum.ethermod.item.ModCreativeModTabs;
+import net.klooum.ethermod.item.ModItems;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -26,6 +29,10 @@ public class EtherMod {
     public EtherMod() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        ModCreativeModTabs.register(modEventBus);
+
+        ModItems.register(modEventBus);
+
         modEventBus.addListener(this::commonSetup);
 
         MinecraftForge.EVENT_BUS.register(this);
@@ -37,9 +44,13 @@ public class EtherMod {
 
     }
 
-    // Add the example block item to the building blocks tab
+    // essa linha serve para adicionar os items que eu criar para o mine no menu criativo em menus já existentes
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-
+        //exemplo a baixo de como colocar item em um menu existente
+        if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
+            //event.accept(ModItems.ETHER);
+            //event.accept(ModItems.CHAOS);
+        }
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
